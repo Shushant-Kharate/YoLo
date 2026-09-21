@@ -1,11 +1,24 @@
 # Model directory
 
-Place your trained YOLO weights here using this exact name:
+Place an exported YOLOv5 ONNX model here using this exact name:
 
 ```text
-models/best.pt
+models/best.onnx
 ```
 
-OrbitGuard automatically changes from **Demonstration model** to **Custom YOLO model** after the backend restarts and detects this file.
+Add one class name per line to:
 
-The weights should come from a model trained on the same class labels used by your SPARK/space-object dataset. Do not use the interface output for real spacecraft operations without calibrated orbital tracking and independent validation.
+```text
+models/classes.txt
+```
+
+Example:
+
+```text
+satellite
+debris
+```
+
+OrbitGuard automatically changes from **Demonstration model** to **Custom YOLO model** after the Java backend restarts and detects `best.onnx`. Java performs image preprocessing, ONNX Runtime inference, confidence filtering, non-maximum suppression, and response serialization.
+
+The ONNX file should come from a YOLOv5 model trained on the same class labels used by the SPARK/space-object dataset. Do not use this educational interface for real spacecraft operations without calibrated orbital tracking and independent validation.

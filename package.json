@@ -7,7 +7,7 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "backend": "python -m uvicorn backend.main:app --reload --port 8000",
+    "backend": "mvn -f backend-java/pom.xml spring-boot:run",
     "start": "concurrently -k -n UI,API -c cyan,yellow \"npm:dev\" \"npm:backend\""
   },
   "dependencies": {

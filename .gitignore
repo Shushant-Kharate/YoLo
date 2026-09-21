@@ -1,8 +1,8 @@
 node_modules/
 dist/
-.venv/
-__pycache__/
-*.pyc
 .env
+backend-java/target/
 models/*.pt
+models/*.onnx
+models/classes.txt
 !models/README.md

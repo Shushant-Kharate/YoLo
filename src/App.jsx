@@ -106,7 +106,7 @@ export default function App() {
         </div>
         <Planner />
       </main>
-      <footer><span>{mode === 'live' ? 'Live custom-model inference is enabled.' : <>Demo mode is clearly labelled. Add <code>models/best.pt</code> for live YOLO inference.</>}</span><span>OrbitGuard v1.0 · University AI demonstration</span></footer>
+      <footer><span>{mode === 'live' ? 'Live Java ONNX inference is enabled.' : <>Demo mode is clearly labelled. Add <code>models/best.onnx</code> for Java ONNX inference.</>}</span><span>OrbitGuard v1.1 · Java API</span></footer>
       <GuideDialog open={guideOpen} onClose={() => setGuideOpen(false)} />
     </>
   )

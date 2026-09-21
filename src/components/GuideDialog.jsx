@@ -10,7 +10,7 @@ export function GuideDialog({ open, onClose }) {
         <h2 id="guide-title">How to demonstrate OrbitGuard</h2>
         <ol>
           <li><span>1</span><div><strong>Choose an image</strong><p>Select one of the bundled scenes or upload a JPG or PNG.</p></div></li>
-          <li><span>2</span><div><strong>Run the analysis</strong><p>The API uses a custom YOLO model when <code>models/best.pt</code> exists. Otherwise it returns clearly labelled sample detections.</p></div></li>
+          <li><span>2</span><div><strong>Run the analysis</strong><p>The Java API uses a custom YOLO ONNX model when <code>models/best.onnx</code> exists. Otherwise it returns clearly labelled sample detections.</p></div></li>
           <li><span>3</span><div><strong>Inspect confidence</strong><p>Move the threshold slider and select a detection to connect the image evidence with the inspector.</p></div></li>
           <li><span>4</span><div><strong>Plan around debris</strong><p>Click the A* grid to add or remove obstacles and watch the shortest route recalculate.</p></div></li>
         </ol>
