@@ -52,7 +52,7 @@ The sample images support interface testing and classroom demonstrations. They a
 | Backend | Java 21, Spring Boot 3 | REST API, validation and application services |
 | AI runtime | Microsoft ONNX Runtime for Java | Executes an exported YOLOv5 ONNX model |
 | Image processing | Java AWT and ImageIO | Decodes, resizes and normalizes uploaded images |
-| Planning | JavaScript A* implementation | Recalculates a route around grid obstacles in real time |
+| Planning | Java 21 A* service | Calculates the shortest grid route through `POST /api/plan` |
 | Testing | JUnit 5 and Spring MockMvc | Tests detection rules and API responses |
 | Build tools | Maven and npm | Builds the Java API and React frontend |
 
@@ -88,7 +88,7 @@ YoLo/
 │       │   ├── config/       # CORS configuration
 │       │   ├── controller/   # Health and analysis endpoints
 │       │   ├── model/        # API response records
-│       │   └── service/      # Demo detections and Java ONNX inference
+│       │   └── service/      # Java ONNX inference and A* planning
 │       └── test/              # Java tests
 ├── docs/                      # Application screenshot
 ├── models/                    # Optional best.onnx and classes.txt
@@ -96,7 +96,7 @@ YoLo/
 ├── src/
 │   ├── components/            # React interface components
 │   ├── data/samples.js        # Demonstration scene data
-│   ├── lib/astar.js           # A* implementation
+│   ├── config.js              # Java API address
 │   ├── App.jsx
 │   └── styles.css
 ├── package.json
@@ -127,7 +127,7 @@ Each prediction includes a confidence value between 0 and 1. The user-controlled
 
 ### 6. Route planning
 
-The planning grid represents the satellite start position, target position and confirmed debris cells. A* calculates `f(n) = g(n) + h(n)`, where `g(n)` is the travelled cost and `h(n)` is the Manhattan-distance estimate. Editing an obstacle triggers immediate route recalculation.
+The planning grid represents the satellite start position, target position and confirmed debris cells. The frontend sends this state to the Java planning service. Java A* calculates `f(n) = g(n) + h(n)`, where `g(n)` is the travelled cost and `h(n)` is the Manhattan-distance estimate. Editing an obstacle triggers another API request and immediate route recalculation.
 
 ## API endpoints
 
@@ -135,6 +135,7 @@ The planning grid represents the satellite start position, target position and c
 |---|---|---|
 | `GET` | `/api/health` | Reports API status, runtime and inference mode |
 | `POST` | `/api/analyze` | Accepts an image/scene and returns filtered detections |
+| `POST` | `/api/plan` | Runs Java A* over a grid and returns the shortest available path |
 
 ### Sample health output
 
@@ -273,7 +274,7 @@ Use this sequence for the LO 6.1 and LO 6.2 demonstration:
 5. Move the confidence threshold above and below a detection's score to demonstrate uncertainty handling.
 6. Select a bounding box and show the linked object in the inspector.
 7. Scroll to **Orbital collision avoidance planning**.
-8. Click grid cells to introduce debris obstacles and show A* finding another route.
+8. Click grid cells to introduce debris obstacles and show the Java A* service finding another route.
 9. Open **Guide** and summarize the connection between detection evidence and planning.
 10. State the limitation: image detection alone cannot authorize a spacecraft manoeuvre. Operational use would require calibrated tracking, orbital dynamics, independent validation and human authorization.
 
@@ -297,7 +298,7 @@ The paper covers object detection and classification. OrbitGuard's A* collision-
 
 - **Learning methods:** supervised deep learning, convolutional neural networks and YOLO object detection.
 - **Knowledge representation:** objects, labels, confidence values, normalized boxes and obstacle-grid states.
-- **Planning:** A* search over a discrete state space.
+- **Planning:** Java A* search over a discrete state space.
 - **SDG 9 - Industry, Innovation and Infrastructure:** supports research into automated space situational awareness.
 - **SDG 12 - Responsible Consumption and Production:** supports longer satellite service life by highlighting collision-risk monitoring.
 - **SDG 13 - Climate Action:** satellite continuity supports environmental and climate observation.

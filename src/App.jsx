@@ -5,8 +5,7 @@ import { Inspector } from './components/Inspector'
 import { Planner } from './components/Planner'
 import { GuideDialog } from './components/GuideDialog'
 import { samples, uploadedFallback } from './data/samples'
-
-const API = import.meta.env.VITE_API_URL || 'http://localhost:8000'
+import { API } from './config'
 
 export default function App() {
   const [sample, setSample] = useState(samples[0])
@@ -106,7 +105,7 @@ export default function App() {
         </div>
         <Planner />
       </main>
-      <footer><span>{mode === 'live' ? 'Live Java ONNX inference is enabled.' : <>Demo mode is clearly labelled. Add <code>models/best.onnx</code> for Java ONNX inference.</>}</span><span>OrbitGuard v1.1 · Java API</span></footer>
+      <footer><span>{mode === 'live' ? 'Live Java ONNX inference is enabled.' : <>Demo mode is clearly labelled. Add <code>models/best.onnx</code> for Java ONNX inference.</>}</span><span>OrbitGuard v1.2 · Java AI API</span></footer>
       <GuideDialog open={guideOpen} onClose={() => setGuideOpen(false)} />
     </>
   )
