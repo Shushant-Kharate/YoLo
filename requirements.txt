@@ -1,0 +1,40 @@
+# OrbitGuard optional YOLOv5 training, evaluation and ONNX export dependencies.
+#
+# Install with:
+#   python -m pip install --upgrade pip
+#   python -m pip install -r requirements.txt
+#
+# The running OrbitGuard application is Java + React and does not import these
+# packages. JDK 21, Maven 3.9+, Node.js 20+ and npm are system tools, so pip
+# cannot install them. See README.md for the complete application setup.
+
+# YOLOv5 base dependencies
+matplotlib>=3.3
+numpy>=1.23.5
+opencv-python>=4.6.0
+pillow>=10.3.0
+psutil>=5.9.0
+PyYAML>=5.3.1
+requests>=2.32.2
+scipy>=1.4.1
+ultralytics-thop>=2.1.2
+torch>=1.8.0
+torchvision>=0.9.0
+ultralytics>=8.4.109
+
+# Training reports and visualisation
+pandas>=1.1.4
+seaborn>=0.11.0
+tensorboard>=2.4.1
+tqdm>=4.66.0
+
+# ONNX export, simplification and Python-side model validation
+onnx>=1.10.0
+onnxslim>=0.1.82
+onnxruntime>=1.18.0
+
+# Packaging and secured transitive dependency floors used by YOLOv5
+packaging>=23.0
+setuptools>=70.0.0
+urllib3>=2.6.0; python_version > "3.8"
+filelock>=3.20.3; python_version >= "3.10"
