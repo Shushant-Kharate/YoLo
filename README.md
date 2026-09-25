@@ -55,16 +55,19 @@ model, while inference is performed locally through WebAssembly.
 
 ```mermaid
 flowchart LR
-    U[User uploads image] --> UI[Frontend.java UI]
-    B[Backend.java] -->|serves page| UI
-    B -->|serves model.onnx| ORT[ONNX Runtime Web]
-    UI -->|640 x 640 tensor| ORT
-    ORT -->|YOLO predictions| NMS[Confidence filter and NMS]
-    NMS --> BOX[Canvas boxes and result cards]
-    UI -->|grid form| API[Java /api/plan]
-    API --> ASTAR[A* search]
-    ASTAR -->|JSON path| UI
+    U[User] --> F[Browser interface]
+    F --> M[YOLO model detects satellites and debris]
+    F --> B[Java backend runs A* planning]
+    M --> R[Results shown to user]
+    B --> R
 ```
+
+The project has three simple parts:
+
+1. **Frontend:** The user uploads an image and views the detection and route.
+2. **YOLO model:** `model.onnx` detects satellites and debris in the browser.
+3. **Java backend:** `Backend.java` serves the application and calculates the
+   shortest safe grid route using A*.
 
 ## Start the complete program
 
