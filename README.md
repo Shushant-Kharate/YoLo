@@ -55,19 +55,25 @@ model, while inference is performed locally through WebAssembly.
 
 ```mermaid
 flowchart LR
-    U[User] --> F[Browser interface]
-    F --> M[YOLO model detects satellites and debris]
-    F --> B[Java backend runs A* planning]
-    M --> R[Results shown to user]
-    B --> R
+    U[User uploads an image] --> F[Browser interface]
+    F --> M[model.onnx detects satellites and debris]
+    M --> D[Bounding boxes and confidence scores]
+    F -->|Grid and obstacles| B[Backend.java runs A*]
+    B -->|Shortest safe path| F
+    D --> F
 ```
 
-The project has three simple parts:
+The project has three main parts:
 
-1. **Frontend:** The user uploads an image and views the detection and route.
-2. **YOLO model:** `model.onnx` detects satellites and debris in the browser.
-3. **Java backend:** `Backend.java` serves the application and calculates the
-   shortest safe grid route using A*.
+1. **Frontend:** `Frontend.java` contains the browser page. It accepts an image,
+   prepares it at 640 × 640 pixels, and displays the final boxes and route.
+2. **YOLO model:** `model.onnx` runs in the browser and returns the predicted
+   class, confidence score, and location of each satellite or debris object.
+3. **Java backend:** `Backend.java` serves the page and model. It also receives
+   the grid, start, goal, and obstacles, then returns the shortest A* path.
+
+The detection image stays in the browser. Only the planning-grid information is
+sent to the Java backend.
 
 ## Start the complete program
 
